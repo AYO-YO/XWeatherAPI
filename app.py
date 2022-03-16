@@ -162,8 +162,8 @@ def getJuheAPI(city):
         data['day_3rd_high'] = getHighTemp(j, 3)
         data['day_3rd_low'] = getLowTemp(j, 3)
         data['day_1st_state'] = getWtState(j, 1)
-        data['day_2nd_state'] = getLowTemp(j, 2)
-        data['day_3rd_state'] = getLowTemp(j, 3)
+        data['day_2nd_state'] = getWtState(j, 2)
+        data['day_3rd_state'] = getWtState(j, 3)
         data['humidity'] = j['result']['realtime']['humidity']
         data['aqi'] = j['result']['realtime']['aqi']
         data['direct'] = j['result']['realtime']['direct']
