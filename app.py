@@ -76,6 +76,34 @@ data = {
 }
 
 
+def parseReq(req):
+    """
+    统一解析请求值
+    :param request: 请求体 
+    :return: 数据
+    """
+    match req.method:
+        case "POST":
+            print('POST')
+            return req.json
+        case "GET":
+            return req.args
+        case _:
+            return None
+
+
+@app.route('/getcity', methods=['GET', 'POST'])
+def getCity():
+    try:
+        req = parseReq(request)
+        x = req.get('x')
+        y = req.get('y')
+        print(x, y)
+        return getGaodeApi(x, y)
+    except TypeError:
+        abort(403)
+
+
 def getGaodeApi(x, y):
     """
     通过调用高德的API获取位置信息
@@ -89,7 +117,7 @@ def getGaodeApi(x, y):
     if data:
         return data[:-1]
     else:
-        return j['regeocode']['addressComponent']['district'][:-1]
+        return str(j['regeocode']['addressComponent']['district'][:-1])
 
 
 def getHighTemp(j, day_num):
